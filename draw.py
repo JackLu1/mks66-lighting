@@ -91,31 +91,10 @@ def draw_polygons( polygons, screen, zbuffer, view, ambient, light, areflect, dr
         if normal[2] > 0:
 
             print ambient
-            color = get_lighting(normal, view, ambient, light, areflect, dreflect, sreflect )
-            #color = [randint(0,255),randint(0,255),randint(0,255),]
+            #color = get_lighting(normal, view, ambient, light, areflect, dreflect, sreflect )
+            color = [randint(0,255),randint(0,255),randint(0,255)]
             scanline_convert(polygons, point, screen, zbuffer, color)
 
-            # draw_line( int(polygons[point][0]),
-            #            int(polygons[point][1]),
-            #            polygons[point][2],
-            #            int(polygons[point+1][0]),
-            #            int(polygons[point+1][1]),
-            #            polygons[point+1][2],
-            #            screen, zbuffer, color)
-            # draw_line( int(polygons[point+2][0]),
-            #            int(polygons[point+2][1]),
-            #            polygons[point+2][2],
-            #            int(polygons[point+1][0]),
-            #            int(polygons[point+1][1]),
-            #            polygons[point+1][2],
-            #            screen, zbuffer, color)
-            # draw_line( int(polygons[point][0]),
-            #            int(polygons[point][1]),
-            #            polygons[point][2],
-            #            int(polygons[point+2][0]),
-            #            int(polygons[point+2][1]),
-            #            polygons[point+2][2],
-            #            screen, zbuffer, color)
         point+= 3
 
 

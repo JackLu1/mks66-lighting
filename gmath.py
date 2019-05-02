@@ -14,11 +14,13 @@ from random import randint
   # Reflection constants (ka, kd, ks) are represened as arrays of
   # doubles (red, green, blue)
 
+# INDICES
 AMBIENT = 0
 DIFFUSE = 1
 SPECULAR = 2
 LOCATION = 0
 COLOR = 1
+# COnstant not index
 SPECULAR_EXP = 4
 
 #lighting functions
