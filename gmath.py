@@ -1,6 +1,5 @@
 import math
 from display import *
-from random import randint
 
 
   # IMPORANT NOTE
@@ -25,22 +24,36 @@ SPECULAR_EXP = 4
 
 #lighting functions
 def get_lighting(normal, view, ambient, light, areflect, dreflect, sreflect ):
-    #color = [randint(0,255),randint(0,255),randint(0,255),]
-    color = calculate_ambient(ambient, areflect)
+    normalize( view )
+    normalize( normal )
+    normalize( light[0] )
+    ambient = calculate_ambient(ambient, areflect)
+    diffuse = calculate_diffuse(light, dreflect, normal)
+    specular = calculate_specular(light, sreflect, view, normal)
+    color = limit_color([ambient[i] + diffuse[i] + specular[i] for i in range(3)])
     return color
 
 def calculate_ambient(alight, areflect):
-    ambient = map( lambda x,y: x*y, alight, areflect )
-    return ambient
+    return [alight[i] * areflect[i] for i in range(3)]
 
 def calculate_diffuse(light, dreflect, normal):
-    pass
+    return [light[1][i] * dreflect[i] * dot_product(normal, light[0]) for i in range(3)]
 
 def calculate_specular(light, sreflect, view, normal):
-    pass
+    dp_rhvh = dot_product(normal, light[0])
+    if dp_rhvh < 0:
+        return [0,0,0]
+    power = [ 2 * dp_rhvh * normal[i] - light[0][i] for i in range(3) ]
+    power_final = dot_product( power, view ) ** SPECULAR_EXP
+    return [light[1][i] * sreflect[i] * power_final for i in range(3)]
 
 def limit_color(color):
-    pass
+    for k in range(3):
+        if color[k] < 0:
+            color[k] = 0
+        elif color[k] > 255:
+            color[k] = 255
+    return [int(i) for i in color]
 
 #vector functions
 #normalize vetor, should modify the parameter

@@ -1,7 +1,6 @@
 from display import *
 from matrix import *
 from gmath import *
-from random import randint
 
 def draw_scanline(x0, z0, x1, z1, y, screen, zbuffer, color):
     if x0 > x1:
@@ -90,11 +89,8 @@ def draw_polygons( polygons, screen, zbuffer, view, ambient, light, areflect, dr
         #print normal
         if normal[2] > 0:
 
-            print ambient
-            #color = get_lighting(normal, view, ambient, light, areflect, dreflect, sreflect )
-            color = [randint(0,255),randint(0,255),randint(0,255)]
+            color = get_lighting(normal, view, ambient, light, areflect, dreflect, sreflect )
             scanline_convert(polygons, point, screen, zbuffer, color)
-
         point+= 3
 
 
